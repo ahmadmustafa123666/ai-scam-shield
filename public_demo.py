@@ -9,6 +9,18 @@ import streamlit as st
 from scam_shield import analyze_message
 
 
+EXAMPLE_MESSAGES = {
+    "banking": "Urgent: Your bank account has been suspended. Send your OTP immediately to restore access.",
+    "link": "Your parcel is waiting. Pay the delivery fee now at http://fake-courier-payment.com/verify.",
+    "normal": "Hi, I will reach home around 6 pm. Please let me know if you need anything.",
+}
+
+
+def load_example(example_name):
+    """Place a safe sample message into the text area."""
+    st.session_state.message_input = EXAMPLE_MESSAGES[example_name]
+
+
 st.set_page_config(
     page_title="AI Scam Shield | Public demo",
     page_icon=":material/shield:",
@@ -48,11 +60,36 @@ st.space("small")
 st.header("Check a message")
 st.caption("Paste a message below. Use sample messages only — never paste a real OTP, password, or card number.")
 
+st.subheader("Try a safe example")
+example_one, example_two, example_three = st.columns(3)
+example_one.button(
+    "Banking / OTP scam",
+    icon=":material/account_balance:",
+    on_click=load_example,
+    args=("banking",),
+    width="stretch",
+)
+example_two.button(
+    "Suspicious link",
+    icon=":material/link:",
+    on_click=load_example,
+    args=("link",),
+    width="stretch",
+)
+example_three.button(
+    "Normal message",
+    icon=":material/chat:",
+    on_click=load_example,
+    args=("normal",),
+    width="stretch",
+)
+
 with st.form("message_check_form", border=True):
     message = st.text_area(
         "Message to check",
         placeholder="For example: Your bank account is suspended. Send your OTP immediately.",
         height=150,
+        key="message_input",
     )
     submitted = st.form_submit_button(
         "Analyse message",
