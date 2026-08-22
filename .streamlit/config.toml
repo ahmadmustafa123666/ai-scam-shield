@@ -1,27 +1,30 @@
 [theme]
 base = "light"
-primaryColor = "#0B5ED7"
-backgroundColor = "#F8FAFC"
+primaryColor = "#125CCF"
+backgroundColor = "#F7F9FC"
 secondaryBackgroundColor = "#EAF2FF"
-textColor = "#172B4D"
-borderColor = "#C9D7EE"
-font = "sans-serif"
+textColor = "#132B4F"
+borderColor = "#C9D8ED"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap"
 baseFontSize = 15
-baseRadius = "medium"
+headingFontSizes = ["34px", "26px", "21px", "18px", "16px", "14px"]
+headingFontWeights = [700, 700, 650, 650, 600, 600]
+baseRadius = "large"
 buttonRadius = "medium"
 showWidgetBorder = true
 showSidebarBorder = true
 linkUnderline = false
 
-blueColor = "#0B5ED7"
+blueColor = "#125CCF"
 greenColor = "#18794E"
 redColor = "#C9372C"
-orangeColor = "#B65D00"
+orangeColor = "#A95B00"
 grayColor = "#5E6C84"
 
 [theme.sidebar]
-backgroundColor = "#F1F6FF"
-secondaryBackgroundColor = "#E3EEFF"
-textColor = "#172B4D"
-borderColor = "#C9D7EE"
-primaryColor = "#0B5ED7"
+backgroundColor = "#F0F5FE"
+secondaryBackgroundColor = "#E1EDFF"
+textColor = "#132B4F"
+borderColor = "#C9D8ED"
+primaryColor = "#125CCF"

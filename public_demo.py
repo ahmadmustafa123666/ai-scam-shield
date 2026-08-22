@@ -1,7 +1,7 @@
 """Privacy-friendly public Streamlit demo for AI Scam Shield.
 
 Unlike the local app.py, this public version never saves visitor messages,
-history, or feedback. It only analyses the submitted text for the current page.
+history, or feedback. It only analyses submitted text for the current page.
 """
 
 import streamlit as st
@@ -10,7 +10,7 @@ from scam_shield import analyze_message
 
 
 st.set_page_config(
-    page_title="AI Scam Shield | Public Demo",
+    page_title="AI Scam Shield | Public demo",
     page_icon=":material/shield:",
     layout="wide",
 )
@@ -18,44 +18,49 @@ st.set_page_config(
 
 with st.sidebar:
     st.title("AI Scam Shield")
-    st.badge(
-        "Public demo",
-        icon=":material/public:",
-        color="blue",
-    )
-    st.caption("Messages are analysed for this page only and are not saved as history.")
+    st.badge("Public demo", icon=":material/public:", color="blue")
+    st.caption("Privacy-first analysis. Submitted messages are not saved as history.")
 
-    st.subheader("How it works")
+    st.header("How it works")
     st.markdown(
         "1. Paste an SMS or message.\n"
         "2. The model and safety rules analyse it.\n"
         "3. Review the risk and recommended action."
     )
 
-    st.subheader("Use safely")
-    st.caption("Do not paste passwords, card numbers, OTPs, or other real secrets.")
+    st.header("Use safely")
+    st.caption("Use sample text only. Never paste real OTPs, passwords, card numbers, or banking details.")
+
+    st.header("What this checks")
+    st.caption("Urgency, requests for sensitive information, links, phone numbers, email addresses, and scam patterns.")
 
 
-st.title("AI Scam Shield", text_alignment="left")
-st.write("A public demo that helps identify suspicious SMS messages before you reply, click, call, or share information.")
-st.markdown(
-    ":blue-badge[:material/public: Public demo] "
-    ":green-badge[:material/lock: No saved message history]"
-)
+with st.container(border=True):
+    st.title("AI Scam Shield", text_alignment="left")
+    st.write("A safer second opinion before you reply, click a link, call a number, or share information.")
+    with st.container(horizontal=True, gap="xsmall"):
+        st.badge("Public demo", icon=":material/public:", color="blue")
+        st.badge("No saved message history", icon=":material/lock:", color="green")
+        st.badge("Explainable results", icon=":material/visibility:", color="orange")
 
-st.subheader("Check a message")
+
+st.space("small")
+st.header("Check a message")
+st.caption("Paste a message below. Use sample messages only — never paste a real OTP, password, or card number.")
+
 with st.form("message_check_form", border=True):
     message = st.text_area(
         "Message to check",
-        placeholder="Paste a message here, for example: Your bank account is suspended. Send your OTP immediately.",
+        placeholder="For example: Your bank account is suspended. Send your OTP immediately.",
         height=150,
     )
     submitted = st.form_submit_button(
-        "Analyze message",
+        "Analyse message",
         type="primary",
         icon=":material/search:",
         width="stretch",
     )
+
 
 if submitted:
     if not message.strip():
@@ -69,7 +74,8 @@ if submitted:
 
 result = st.session_state.get("public_result")
 if result:
-    st.subheader("Analysis result")
+    st.header("Analysis result")
+
     with st.container(border=True):
         if result["is_scam"]:
             st.error("Suspicious message detected", icon=":material/gpp_maybe:")
@@ -95,9 +101,7 @@ if result:
             icon=":material/psychology:",
             border=True,
         )
-        st.caption(
-            f"Model confidence: {result['confidence']:.2f}% · {result['decision_reason']}"
-        )
+        st.caption(f"Model confidence: {result['confidence']:.2f}% · {result['decision_reason']}")
 
     explanation_column, action_column = st.columns(2)
     with explanation_column:
@@ -137,18 +141,18 @@ if result:
                 st.code(email_address)
 
 
-with st.expander("About this project", icon=":material/info:"):
+with st.expander("About this demo", icon=":material/info:"):
     st.write(
         "AI Scam Shield combines a machine-learning SMS classifier with safety rules "
-        "that look for urgency, sensitive-information requests, suspicious links, "
+        "that look for urgency, requests for sensitive information, suspicious links, "
         "and contact details."
     )
     st.markdown(
         "- **ML model:** TF-IDF text features with logistic regression.\n"
         "- **Safety rules:** Add context that a text-only model can miss.\n"
         "- **Privacy:** This public demo does not store submitted messages as history or feedback.\n"
-        "- **Important:** Treat results as a safety warning, not proof. Use official channels to verify unexpected requests."
+        "- **Important:** Treat results as a safety warning, not proof. Verify unexpected requests through official channels."
     )
 
 
-st.caption("This is an educational demo. Do not rely on it as the only basis for financial or security decisions.")
+st.caption("Educational demo only. Do not rely on it as the sole basis for financial or security decisions.")
