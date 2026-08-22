@@ -1,0 +1,17 @@
+# Local Python environment and cached files
+.venv/
+__pycache__/
+*.py[cod]
+
+# Private local data and deployment secrets
+.streamlit/secrets.toml
+ai_scam_shield.db
+check_history.csv
+feedback.csv
+.env
+
+# Local training data and model backup copies
+Data/
+models/*_old.pkl
+models/*_previous.pkl
+models/* (*).pkl
