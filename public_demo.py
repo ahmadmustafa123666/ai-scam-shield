@@ -15,6 +15,9 @@ EXAMPLE_MESSAGES = {
     "normal": "Hi, I will reach home around 6 pm. Please let me know if you need anything.",
 }
 
+PROJECT_REPOSITORY_URL = "https://github.com/ahmadmustafa123666/ai-scam-shield"
+API_REPOSITORY_URL = "https://github.com/ahmadmustafa123666/ai-scam-shield-api"
+
 
 def load_example(example_name):
     """Place a safe sample message into the text area."""
@@ -176,6 +179,25 @@ if result:
                 st.code(phone_number)
             for email_address in result["email_addresses"]:
                 st.code(email_address)
+
+
+st.header("Explore the project")
+with st.container(border=True):
+    st.write("AI Scam Shield is an end-to-end learning project with a Streamlit interface, machine-learning model, safety rules, and an API for automation.")
+    project_column, api_column = st.columns(2)
+    project_column.link_button(
+        "View project on GitHub",
+        PROJECT_REPOSITORY_URL,
+        icon=":material/code:",
+        width="stretch",
+    )
+    api_column.link_button(
+        "View API source",
+        API_REPOSITORY_URL,
+        icon=":material/api:",
+        width="stretch",
+    )
+    st.caption("The API can be run locally and connected to n8n for automated message checks.")
 
 
 with st.expander("About this demo", icon=":material/info:"):
